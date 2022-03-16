@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MoviesCrud.Models;
+using MoviesCrud.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +20,14 @@ namespace MoviesCrud.Controllers
         {
             var movies = await _context.Movies.ToListAsync();
             return View(movies);
+        }
+        public async Task<IActionResult> Create()
+        {
+            var viewModel = new MovieFormViewModel
+            {
+                Genres = await _context.Genres.ToListAsync()
+            };
+            return View();
         }
     }
 }
