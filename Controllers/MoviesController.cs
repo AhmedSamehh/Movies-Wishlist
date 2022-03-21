@@ -25,9 +25,9 @@ namespace MoviesCrud.Controllers
         {
             var viewModel = new MovieFormViewModel
             {
-                Genres = await _context.Genres.ToListAsync()
+                Genres = await _context.Genres.OrderBy(m => m.Name).ToListAsync()
             };
-            return View();
+            return View(viewModel);
         }
     }
 }

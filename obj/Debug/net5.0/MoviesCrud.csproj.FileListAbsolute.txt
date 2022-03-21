@@ -72,3 +72,4 @@ D:\Projects\Web\DotNetCore\MoviesCrud\bin\Debug\net5.0\runtimes\win\lib\netstand
 D:\Projects\Web\DotNetCore\MoviesCrud\bin\Debug\net5.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
 D:\Projects\Web\DotNetCore\MoviesCrud\obj\Debug\net5.0\Razor\Views\Movies\Index.cshtml.g.cs
 D:\Projects\Web\DotNetCore\MoviesCrud\bin\Debug\net5.0\libman.json
+D:\Projects\Web\DotNetCore\MoviesCrud\obj\Debug\net5.0\Razor\Views\Movies\Create.cshtml.g.cs
