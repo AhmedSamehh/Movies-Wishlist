@@ -4,6 +4,7 @@ using MoviesCrud.Models;
 using MoviesCrud.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -21,13 +22,40 @@ namespace MoviesCrud.Controllers
             var movies = await _context.Movies.ToListAsync();
             return View(movies);
         }
-        public async Task<IActionResult> Create()
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(MovieFormViewModel model)
         {
-            var viewModel = new MovieFormViewModel
+            //var viewModel = new MovieFormViewModel
+            //{
+            //    Genres = await _context.Genres.OrderBy(m => m.Name).ToListAsync()
+            //};
+            if (!ModelState.IsValid)
             {
-                Genres = await _context.Genres.OrderBy(m => m.Name).ToListAsync()
-            };
-            return View(viewModel);
+                model.Genres = await _context.Genres.OrderBy(m => m.Name).ToListAsync();
+                return View(model);
+            }
+
+            var files = Request.Form.Files;
+
+            if(!files.Any())
+            {
+                model.Genres = await _context.Genres.OrderBy(m => m.Name).ToListAsync();
+                ModelState.AddModelError("Poster", "Please select movie poster!");
+                return View(model);
+            }
+
+            var poster = files.FirstOrDefault();
+            var allowedExtensions = new List<string> { ".jpg", ".png" };
+
+            if (!allowedExtensions.Contains(Path.GetExtension(poster.FileName).ToLower()))
+            {
+                model.Genres = await _context.Genres.OrderBy(m => m.Name).ToListAsync();
+                ModelState.AddModelError("Poster", "Only .png, .jpg images are allowed!");
+                return View(model);
+            }
+
+            return View(model);
         }
     }
 }
